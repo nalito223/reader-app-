@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from "react";
+import { Route, Routes } from 'react-router-dom'
 import "./App.css"
 import SearchAppBar from "./SearchAppBar"
 import Tabs from "./Tabs"
@@ -43,7 +44,7 @@ function App(): JSX.Element {
   const [articles, setArticles] = useState<Article[]>([]);
   const [sections, setSections] = useState<Article[]>([]);
   const [headline, setHeadline] = useState('Top stories');
-  const [selectedSection, setSelectedSection] = useState('us');
+  const [selectedSection, setSelectedSection] = useState('all');
   const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
@@ -72,40 +73,44 @@ function App(): JSX.Element {
 
   function updateDisplayedArticles(selectedSection: string, articles: Article[], searchInput: string) {
     let filteredArticles = articles;
-  
+
     if (selectedSection !== 'all') {
       filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
     }
-  
+
     if (searchInput.trim() !== '') {
-      filteredArticles = filteredArticles.filter(article => 
+      filteredArticles = filteredArticles.filter(article =>
         article.title.toLowerCase().includes(searchInput.toLowerCase())
         || article.abstract.toLowerCase().includes(searchInput.toLowerCase())
         || (article.byline && article.byline.toLowerCase().includes(searchInput.toLowerCase()))
       );
     }
-  
+
     return filteredArticles;
   }
 
   return (
     <div className="app-container">
-      <SearchAppBar setSearchInput={setSearchInput} searchInput={searchInput}/>
-      <Tabs sections={sections} setSelectedSection={setSelectedSection}/>
-      <h1>{headline}</h1>
-
-      {selectedSection !== "all" && <div className="cards-container">
-        {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
-          <Card article={article} />
-        ))}
-      </div>}
-
-      {selectedSection === "all" && <div className="cards-container">
-        {articles.map((article) => (
-          <Card article={article} />
-        ))}
-      </div>}
-
+      <SearchAppBar
+        setSearchInput={setSearchInput}
+        searchInput={searchInput}
+      />
+      <Tabs
+        sections={sections}
+        setSelectedSection={setSelectedSection}
+      />
+      <Routes>
+        <Route path="/" element={
+          <>
+            <h1>{headline}</h1>
+            <div className="cards-container">
+              {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
+                <Card article={article} key={article.url} />
+              ))}
+            </div>
+          </>
+        } />
+      </Routes>
     </div>
   );
 }

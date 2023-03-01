@@ -70,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 //   console.log("drawerOpen", status)
 // } 
 
-export default function SearchAppBar(props): JSX.Element {
+export default function SearchAppBar(props: any): JSX.Element {
 
   const [status, setStatus] = useState(false);
   return (

@@ -8,29 +8,30 @@ import "./Tabs.css"
 import { accordionActionsClasses } from '@mui/material';
 
 export default function Tabs(props: any) {
-  const [value, setValue] = React.useState("");
-
+  const [value, setValue] = React.useState(0);
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
-    setValue(newValue);
+    setValue(Number(newValue));
     props.setSelectedSection(props.sections[newValue])
     // console.log("TABS VALUE", props.sections[newValue])
   };
 
+  let counter = -1
   const allTabs = props.sections.map((section: string) => {
+    counter++
     return (
       <Tab
+        key={counter}
+        value={`${counter}`}
         label={`${section}`}
         style={{ color: 'RGB(0, 31, 63)' }}
         sx={{ fontFamily: "'Lora', serif" }}
-
-
       />
     )
   })
 
   return (
     <Box sx={{ width: '100%', typography: 'body1' }}>
-      <TabContext value={value}>
+      <TabContext value={String(value)}>
         <Box sx={{
           borderBottom: 1, borderColor: 'divider'
 
