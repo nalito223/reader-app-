@@ -76,7 +76,7 @@ export default function SearchAppBar(): JSX.Element {
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static">
+        <AppBar position="static" className="navbar">
           <Toolbar>
             <IconButton
               size="large"
@@ -93,9 +93,14 @@ export default function SearchAppBar(): JSX.Element {
               variant="h6"
               noWrap
               component="div"
-              sx={{ flexGrow: 1, display: { xs: 'none', sm: 'block' } }}
+              sx={{ 
+                flexGrow: 1, 
+                display: { xs: 'none', sm: 'block' },
+                fontFamily: "'Lora', serif",
+              }}
+             
             >
-              ReaderApp
+             <b>NYT Reader</b>
             </Typography>
             <Search>
               <SearchIconWrapper>

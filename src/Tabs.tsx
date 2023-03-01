@@ -14,8 +14,7 @@ export default function Tabs(props: any) {
     setValue(newValue);
   };
 
-  const allTabs = props.sections.map((section) => {
-    
+  const allTabs = props.sections.map((section: string) => {
     return (
       <Tab label={`${section}`} />
     )
