@@ -14,7 +14,7 @@ import Drawer from "./Drawer"
 // import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
 
 import { useState } from "react"
-import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
+// import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
 
 
 // let status = true
@@ -97,6 +97,8 @@ export default function SearchAppBar(): JSX.Element {
                 flexGrow: 1, 
                 display: { xs: 'none', sm: 'block' },
                 fontFamily: "'Lora', serif",
+                textTransform: "uppercase",
+                letterSpacing: "1px"
               }}
              
             >

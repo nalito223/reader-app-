@@ -43,6 +43,7 @@ function App(): JSX.Element {
   const [articles, setArticles] = useState<Article[]>([]);
   const [sections, setSections] = useState<Article[]>([]);
   const [headline, setHeadline] = useState('Top stories');
+  const [selectedSection, setSelectedSection] = useState('all');
 
   useEffect(() => {
     const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
@@ -62,7 +63,7 @@ function App(): JSX.Element {
           !acc.includes(curr.section) && acc.push(curr.section)
           return acc
         }, [])
-        setSections(["All", ...uniqueSections])
+        setSections(["all", ...uniqueSections])
         // setArticles(articlesData);
         setArticles(data.results);
       });

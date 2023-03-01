@@ -67,7 +67,7 @@ const Card: React.FC<Props> = ({ article }) => {
       <h4><mark>{"#" + section }</mark></h4>
       <h3>{title}</h3>
       <p>{abstract}</p>
-      <p>{byline}</p>
+      <p><i>{byline}</i></p>
     </div>
   );
 };

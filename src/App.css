@@ -1,12 +1,16 @@
 .cards-container {
-  width: 95%;
-    display: grid;
-    grid-template-columns: 1fr 2fr 1fr;
-    grid-template-rows: repeat(3, 1fr);
-    grid-column-gap: 1%;
-    grid-row-gap: 0;
+  width: 90%;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  grid-template-rows: repeat(3, 1fr);
+  grid-column-gap: 1%;
+  grid-row-gap: 0;
 
 }
+
+/* .cards-container .middle-column-element {
+  grid-row: span 2;
+} */
 
 .app-container {
   display: flex;
@@ -17,7 +21,7 @@
   font-family: 'Lora', serif;
 }
 
-.css-hyum1k-MuiToolbar-root{
+.css-hyum1k-MuiToolbar-root {
   background-color: RGB(0, 31, 63);
 }
 
@@ -26,3 +30,23 @@
 
 }
 
+h1 {
+  text-transform: uppercase;
+  font-style: italic;
+  color: RGB(0, 31, 63);
+  border-bottom: 1px solid RGB(0, 31, 63);
+  /* letter-spacing: 1px; */
+}
+
+/* .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {
+  border-bottom: 2px solid red;
+  border: 2px solid green
+} */
+
+
+
+
+/* .css-1aquho2-MuiTabs-indicator {
+  background-color: RGB(0, 31, 63);
+  border: 2px solid red;
+} */
