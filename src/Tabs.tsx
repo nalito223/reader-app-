@@ -12,7 +12,8 @@ export default function Tabs(props: any) {
 
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setValue(newValue);
-    console.log("TABS VALUE", props.sections[newValue])
+    props.setSelectedSection(props.sections[newValue])
+    // console.log("TABS VALUE", props.sections[newValue])
   };
 
   const allTabs = props.sections.map((section: string) => {

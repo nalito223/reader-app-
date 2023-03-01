@@ -70,7 +70,7 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 //   console.log("drawerOpen", status)
 // } 
 
-export default function SearchAppBar(): JSX.Element {
+export default function SearchAppBar(props): JSX.Element {
 
   const [status, setStatus] = useState(false);
   return (
@@ -111,6 +111,8 @@ export default function SearchAppBar(): JSX.Element {
               <StyledInputBase
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
+                value={props.searchInput}
+                onChange={(event) => props.setSearchInput(event.target.value)}
               />
             </Search>
           </Toolbar>

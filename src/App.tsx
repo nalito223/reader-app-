@@ -43,7 +43,8 @@ function App(): JSX.Element {
   const [articles, setArticles] = useState<Article[]>([]);
   const [sections, setSections] = useState<Article[]>([]);
   const [headline, setHeadline] = useState('Top stories');
-  const [selectedSection, setSelectedSection] = useState('all');
+  const [selectedSection, setSelectedSection] = useState('us');
+  const [searchInput, setSearchInput] = useState('');
 
   useEffect(() => {
     const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
@@ -69,21 +70,42 @@ function App(): JSX.Element {
       });
   }, []);
 
+  function updateDisplayedArticles(selectedSection: string, articles: Article[], searchInput: string) {
+    let filteredArticles = articles;
+  
+    if (selectedSection !== 'all') {
+      filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
+    }
+  
+    if (searchInput.trim() !== '') {
+      filteredArticles = filteredArticles.filter(article => 
+        article.title.toLowerCase().includes(searchInput.toLowerCase())
+        || article.abstract.toLowerCase().includes(searchInput.toLowerCase())
+        || (article.byline && article.byline.toLowerCase().includes(searchInput.toLowerCase()))
+      );
+    }
+  
+    return filteredArticles;
+  }
+
   return (
     <div className="app-container">
-      <SearchAppBar />
-      <Tabs sections={sections} />
+      <SearchAppBar setSearchInput={setSearchInput} searchInput={searchInput}/>
+      <Tabs sections={sections} setSelectedSection={setSelectedSection}/>
       <h1>{headline}</h1>
-      <div className="cards-container">
-        {/* <ul> */}
-          {articles.map((article) => (
-           <Card article={article} />
-            // <li key={article.url}>
-            //   <a href={article.url}>{article.title}</a>
-            // </li>
-          ))}
-        {/* </ul> */}
-      </div>
+
+      {selectedSection !== "all" && <div className="cards-container">
+        {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
+          <Card article={article} />
+        ))}
+      </div>}
+
+      {selectedSection === "all" && <div className="cards-container">
+        {articles.map((article) => (
+          <Card article={article} />
+        ))}
+      </div>}
+
     </div>
   );
 }
