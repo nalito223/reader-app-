@@ -31,20 +31,55 @@ interface Article {
     copyright: string;
   }[];
   short_url: string;
+  index: number;
+  url1: string;
 }
 
-interface ArticleDetailViewProps {
-  article: Article;
-}
+// interface ArticleDetailViewProps {
+//   article: Article;
+// }
 
-function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
+function ArticleDetailView({  }): JSX.Element {
+  const [article, setArticle] = useState<Article | any>({});
+  const { id } = useParams<{ id: string }>();
+  const url1 = Object.values(useParams())[0]
+  // console.log(Object.values(useParams())[0])
+// console.log("URI from params", Object.values(id))
+
+
+  // useEffect(() => {
+  //   window.scrollTo(0, 0);
+  // }, []);
+
   useEffect(() => {
+    console.log("made it to article detail view")
     window.scrollTo(0, 0);
+    const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
+    const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`;
+
+    fetch(url)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log("FETCH IN DETAIL",data.results)
+        let articleMatch
+        const findMatch = data.results.forEach((article: Article) => {
+          if (url1 && article.url.includes(url1)) {
+            articleMatch = article
+          } else {
+            console.log("NO MATCH FOUND")
+          }
+        })
+
+
+        // console.log("article match", articleMatch)
+        setArticle(articleMatch);
+      });
   }, []);
   
-  const hasImage = article.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
+  const hasImage = article?.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
 
   return (
+    article && (
     <div className="detail-view-container">
       <h2 className="detail-title">{article.title}</h2>
       <p className="detail-abstract">{article.abstract}</p>
@@ -65,7 +100,8 @@ function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
         <p className="nyt-link"><mark>Click to continue reading at the New York Times.</mark></p>
       </Link>
     </div>
-  );
-}
+  ))
+};
+
 
 export default ArticleDetailView;

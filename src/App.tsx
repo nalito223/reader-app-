@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useLocation, Link } from 'react-router-dom'
+import { Route, Routes, useLocation, Link, useParams } from 'react-router-dom'
 import "./App.css"
 import SearchAppBar from "./SearchAppBar"
 
@@ -36,6 +36,7 @@ interface Article {
     caption: string;
     copyright: string;
   }[];
+  index: number;
   short_url: string;
 }
 
@@ -51,6 +52,7 @@ function App(): JSX.Element {
   const [selectedArticle, setSelectedArticle] = useState<Article | any>(null);
   const location = useLocation();
   const inDetailedView = location.pathname.includes('/article/')
+  const { uri } = useParams<{ uri: string }>();
 
 
   useEffect(() => {
@@ -142,8 +144,9 @@ function App(): JSX.Element {
               }
 
               <div className="cards-container">
-                {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
+                {updateDisplayedArticles(selectedSection, articles, searchInput).map((article, index) => (
                   <Card
+                    index={index}
                     article={article}
                     key={article.url}
                     setSelectedArticle={setSelectedArticle} />
@@ -153,13 +156,13 @@ function App(): JSX.Element {
             </>
           } />
 
-          {selectedArticle && selectedArticle.title && (
-            <Route
-              path={`/article/${selectedArticle.short_url}`}
-              element={<ArticleDetailView article={selectedArticle} />}
-            />
-          )}
 
+          <Route
+            path={`/article/*`}
+            element={<ArticleDetailView />}
+          />
+
+          <Route path="*" element={<h2>404: Page not found.</h2>} />
         </Routes>
 
       </div>

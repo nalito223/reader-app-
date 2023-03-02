@@ -37,11 +37,12 @@ interface Props {
   article: Article;
   setSelectedArticle: React.Dispatch<React.SetStateAction<Article>>;
   key: string;
+  index: number;
 }
 
-const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
+const Card: React.FC<Props> = ({ article, setSelectedArticle, index }) => {
   const savedArticle = article;
-  const { section, title, abstract, byline, multimedia } = article;
+  const { section, title, abstract, byline, multimedia, uri, url } = article;
   const imageUrl = multimedia?.find((m) => m.format === 'Super Jumbo')?.url;
 
   const [imgSrc, setImgSrc] = useState<string>('');
@@ -66,7 +67,7 @@ const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
   }, [multimedia]);
 
   return (
-    <Link to={`/article/${article.short_url}`}>
+    <Link to={`/article/${String(url)}`}>
       <div className="article-card" onClick={() => setSelectedArticle(savedArticle)}>
         <div className="image-container">
           {imageUrl ? <img src={imageUrl} alt={title} /> : null}
