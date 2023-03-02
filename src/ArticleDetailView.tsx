@@ -79,7 +79,7 @@ function ArticleDetailView({  }): JSX.Element {
   const hasImage = article?.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
 
   return (
-    article.url && (
+    article && article.title && (
     <div className="detail-view-container">
       <h2 className="detail-title">{article.title}</h2>
       <p className="detail-abstract">{article.abstract}</p>
