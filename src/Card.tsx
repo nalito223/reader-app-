@@ -40,35 +40,36 @@ interface Props {
 }
 
 const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
-  const savedArticle = article
+  const savedArticle = article;
   const { section, title, abstract, byline, multimedia } = article;
   const imageUrl = multimedia?.find((m) => m.format === 'Super Jumbo')?.url;
 
   const [imgSrc, setImgSrc] = useState<string>('');
 
   useEffect(() => {
-    let found = false;
-    multimedia?.forEach((media) => {
-      if (!found && media.type === 'image' && media.url) {
-        const img = new Image();
-        img.src = media.url;
-        img.onload = () => {
-          found = true;
-          setImgSrc(media.url);
-        };
-        img.onerror = () => {
-          console.error(`Failed to load image: ${media.url}`);
-        };
-      }
-    });
+    if (multimedia && multimedia.length > 0) {
+      let found = false;
+      multimedia.forEach((media) => {
+        if (!found && media.type === 'image' && media.url) {
+          const img = new Image();
+          img.src = media.url;
+          img.onload = () => {
+            found = true;
+            setImgSrc(media.url);
+          };
+          img.onerror = () => {
+            console.error(`Failed to load image: ${media.url}`);
+          };
+        }
+      });
+    }
   }, [multimedia]);
 
   return (
     <Link to={`/article/${article.short_url}`}>
-      <div className="article-card" 
-      onClick={() => setSelectedArticle(savedArticle)}>
+      <div className="article-card" onClick={() => setSelectedArticle(savedArticle)}>
         <div className="image-container">
-          {imageUrl && <img src={imageUrl} alt="" />}
+          {imageUrl ? <img src={imageUrl} alt={title} /> : null}
         </div>
         <h4><mark>{"#" + section}</mark></h4>
         <h3>{title}</h3>
@@ -78,4 +79,5 @@ const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
     </Link>
   );
 };
+
 export default Card;
