@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from "react";
 import { useParams, Link } from "react-router-dom";
 import "./ArticleDetailView.css"
@@ -43,6 +42,8 @@ function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
     window.scrollTo(0, 0);
   }, []);
   
+  const hasImage = article.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
+
   return (
     <div className="detail-view-container">
       <h2 className="detail-title">{article.title}</h2>
@@ -52,10 +53,13 @@ function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
         <p>{article.byline} | {article.published_date}</p>
       </div>
 
-      <img src={article.multimedia[0].url} alt={article.multimedia[0].caption} />
-
+      {hasImage && (
+        <img src={article.multimedia[0].url} alt={article.multimedia[0].caption} />
+      )}
       
+      {hasImage && (
         <p>{article.multimedia[0].caption}<i> Credit: {article.multimedia[0].copyright}</i></p>
+      )}
         
       <Link to={article.url}>
         <p className="nyt-link"><mark>Click to continue reading at the New York Times.</mark></p>
@@ -64,4 +68,4 @@ function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
   );
 }
 
-export default ArticleDetailView
+export default ArticleDetailView;
