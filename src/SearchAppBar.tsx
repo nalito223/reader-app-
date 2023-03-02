@@ -84,8 +84,18 @@ export default function SearchAppBar(props: any): JSX.Element {
   };
   return (
     <>
-      <Box sx={{ flexGrow: 1 }}>
-        <AppBar position="static" className="navbar">
+      <Box
+        // sx={{ flexGrow: 1 }}
+        sx={{
+          // backgroundColor: "red",
+          flexGrow: 1
+        }}
+      >
+        <AppBar position="static" className="navbar"
+          sx={{
+            backgroundColor: "RGB(0, 31, 63)",
+          }}
+        >
           <Toolbar>
             <IconButton
               size="large"
@@ -95,6 +105,7 @@ export default function SearchAppBar(props: any): JSX.Element {
               // sx={{ mr: 2 }}
               onClick={() => setStatus(true)}
             // onClick={() => drawerOpenToggle()}
+
             >
               {/* <MenuIcon /> */}
             </IconButton>
