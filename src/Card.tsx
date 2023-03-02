@@ -48,7 +48,7 @@ const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
 
   useEffect(() => {
     let found = false;
-    multimedia.forEach((media) => {
+    multimedia?.forEach((media) => {
       if (!found && media.type === 'image' && media.url) {
         const img = new Image();
         img.src = media.url;
