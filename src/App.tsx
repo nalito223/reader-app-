@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes } from 'react-router-dom'
+import { Route, Routes, useLocation } from 'react-router-dom'
 import "./App.css"
 import SearchAppBar from "./SearchAppBar"
 import Tabs from "./Tabs"
@@ -48,6 +48,8 @@ function App(): JSX.Element {
   const [selectedSection, setSelectedSection] = useState('all');
   const [searchInput, setSearchInput] = useState('');
   const [selectedArticle, setSelectedArticle] = useState<Article | any>(null);
+  const location = useLocation();
+  const inDetailedView = location.pathname.includes('/article/')
 
 
   useEffect(() => {
@@ -81,7 +83,7 @@ function App(): JSX.Element {
     //   filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
     // }
 
-    if (selectedSection !== 'all' ) {
+    if (selectedSection !== 'all') {
       filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
     }
 
@@ -103,11 +105,11 @@ function App(): JSX.Element {
         searchInput={searchInput}
       />
       <div className="tablist-container" style={{ height: "50px", overflowX: "scroll" }}>
-     
-          <Tabs
+
+        {!inDetailedView && <Tabs
           sections={sections}
           setSelectedSection={setSelectedSection}
-        />
+        />}
       </div>
 
       <div className="app-container">
@@ -139,7 +141,7 @@ function App(): JSX.Element {
 
           {selectedArticle && selectedArticle.title && (
             <Route
-              path={`/article/${selectedArticle.title.toLowerCase().split(" ").join("-")}`}
+              path={`/article/${selectedArticle.short_url}`}
               element={<ArticleDetailView article={selectedArticle} />}
             />
           )}

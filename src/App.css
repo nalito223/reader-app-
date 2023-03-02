@@ -8,10 +8,6 @@
 
 }
 
-/* .cards-container .middle-column-element {
-  grid-row: span 2;
-} */
-
 .app-container {
   display: flex;
   flex-direction: column;
@@ -31,14 +27,11 @@
 }
 
 
-
-
 h1 {
   text-transform: uppercase;
   font-style: italic;
   color: RGB(0, 31, 63);
   border-bottom: 1px solid RGB(0, 31, 63);
-  /* letter-spacing: 1px; */
 }
 
 /* .css-1h9z7r5-MuiButtonBase-root-MuiTab-root.Mui-selected {

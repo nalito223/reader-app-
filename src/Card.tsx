@@ -64,7 +64,7 @@ const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
   }, [multimedia]);
 
   return (
-    <Link to={`/article/${article.title.toLowerCase().split(" ").join("-")}`}>
+    <Link to={`/article/${article.short_url}`}>
       <div className="article-card" 
       onClick={() => setSelectedArticle(savedArticle)}>
         <div className="image-container">
