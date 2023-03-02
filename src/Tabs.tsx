@@ -32,12 +32,15 @@ export default function Tabs(props: any) {
   })
 
   return (
-    <Box sx={{ width: '100%', typography: 'body1', overflowX: 'auto' }}>
+    <Box sx={{ width: '100%', typography: 'body1', }}>
       <TabContext value={String(value)}>
         <Box sx={{
-          borderBottom: 1, borderColor: 'divider'
+          borderBottom: 1,
+          borderColor: 'divider',
+          overflowX: 'auto',
         }}>
-          <TabList onChange={handleChange}
+          <TabList
+            onChange={handleChange}
             aria-label="lab API tabs example"
             className="tablist-container"
             TabIndicatorProps={{
@@ -53,12 +56,7 @@ export default function Tabs(props: any) {
               },
               display: 'flex',
               flexWrap: 'nowrap',
-              overflowX: 'auto',
-              scrollbarWidth: 'none',
-              msOverflowStyle: 'none',
-              '&::-webkit-scrollbar': {
-                display: 'none',
-              },
+              maxWidth: '100%',
             }}
           >
             {allTabs}

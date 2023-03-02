@@ -1,4 +1,4 @@
-.tablist-container {
+/* .tablist-container {
 
 
 
@@ -7,5 +7,10 @@
     width: 100vw;
 
 
-}
-
+} */
+/* 
+.tabs-container {
+  display: flex;
+  flex-direction: column;
+  border: 2px solid red
+} */

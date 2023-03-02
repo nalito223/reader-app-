@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Route, Routes, useLocation } from 'react-router-dom'
+import { Route, Routes, useLocation, Link } from 'react-router-dom'
 import "./App.css"
 import SearchAppBar from "./SearchAppBar"
 import Tabs from "./Tabs"
@@ -104,15 +104,23 @@ function App(): JSX.Element {
         setSearchInput={setSearchInput}
         searchInput={searchInput}
       />
-      <div className="tablist-container" style={{ height: "50px", overflowX: "scroll" }}>
+      {/* <div className="tablist-container" style={{ height: "50px", overflowX: "scroll" }}> */}
 
-        {!inDetailedView && <Tabs
-          sections={sections}
-          setSelectedSection={setSelectedSection}
-        />}
-      </div>
+      {!inDetailedView && <Tabs
+        sections={sections}
+        setSelectedSection={setSelectedSection}
+      />}
+
+
+     
+      {/* </div> */}
 
       <div className="app-container">
+      {inDetailedView && (
+        <Link to="/">
+         <p className="return">Return</p>
+        </Link>
+      )}
 
         <Routes>
           <Route path="/" element={
