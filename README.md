@@ -4,10 +4,10 @@ This is a React-based web application for mobile and desktop that uses the New Y
 [Click here to view deployed site](https://reader-app-ten.vercel.app/)
 
 ## Mobile preview
-![mobile-preview](https://user-images.githubusercontent.com/110144802/222586007-416f5d57-331f-4f67-9779-feae89cefc75.gif)
+<img align="center" height="400px" src="https://user-images.githubusercontent.com/110144802/222586007-416f5d57-331f-4f67-9779-feae89cefc75.gif"/>
 
 ## Desktop preview
-![desktop-preview](https://user-images.githubusercontent.com/110144802/222586017-108ae325-d722-40ef-993f-abf95d977446.gif)
+<img align="center" height="400px" src="https://user-images.githubusercontent.com/110144802/222587120-fc8954c4-df66-4086-901b-ffe850cacca6.gif"/>
 
 ## Usage
 The application provides a simple interface for searching and displaying articles. When you first load the application, it will fetch the top stories from the New York Times API and display them in a list. You can then search for articles by typing a keyword into the search bar at the top of the page. You can also filter articles by section using the tabs located below the search bar.
