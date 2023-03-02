@@ -42,7 +42,13 @@ interface Article {
 function ArticleDetailView({  }): JSX.Element {
   const [article, setArticle] = useState<Article | any>({});
   const { id } = useParams<{ id: string }>();
-  const url1 = Object.values(useParams())[0]
+  // const url1 = Object.values(useParams())[0]
+  const currentUrl = window.location.href;
+const url1 = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
+
+const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
+const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`;
+
   // console.log(Object.values(useParams())[0])
 // console.log("URI from params", Object.values(id))
 
@@ -57,23 +63,30 @@ function ArticleDetailView({  }): JSX.Element {
     const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
     const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`;
 
+    // fetch(url)
+    //   .then((response) => response.json())
+    //   .then((data) => {
+    //     console.log("FETCH IN DETAIL",data.results)
+    //     let articleMatch
+    //     const findMatch = data.results.forEach((article: Article) => {
+    //       if (url1 && article.url.includes(url1)) {
+    //         articleMatch = article
+    //       } else {
+    //         console.log("NO MATCH FOUND")
+    //       }
+    //     })
+
     fetch(url)
-      .then((response) => response.json())
-      .then((data) => {
-        console.log("FETCH IN DETAIL",data.results)
-        let articleMatch
-        const findMatch = data.results.forEach((article: Article) => {
-          if (url1 && article.url.includes(url1)) {
-            articleMatch = article
-          } else {
-            console.log("NO MATCH FOUND")
-          }
-        })
-
-
-        // console.log("article match", articleMatch)
-        setArticle(articleMatch);
-      });
+  .then((response) => response.json())
+  .then((data) => {
+    let articleMatch;
+    data.results.forEach((article: Article) => {
+      if (article.url.includes(url1)) {
+        articleMatch = article;
+      }
+    });
+    setArticle(articleMatch);
+  });
   }, []);
   
   const hasImage = article?.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
