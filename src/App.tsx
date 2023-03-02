@@ -4,6 +4,7 @@ import "./App.css"
 import SearchAppBar from "./SearchAppBar"
 import Tabs from "./Tabs"
 import Card from "./Card"
+import ArticleDetailView from "./ArticleDetailView"
 // import Drawer from "./Drawer"
 
 interface Article {
@@ -46,6 +47,8 @@ function App(): JSX.Element {
   const [headline, setHeadline] = useState('Top stories');
   const [selectedSection, setSelectedSection] = useState('all');
   const [searchInput, setSearchInput] = useState('');
+  const [selectedArticle, setSelectedArticle] = useState<Article | any>(null);
+
 
   useEffect(() => {
     const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
@@ -55,10 +58,10 @@ function App(): JSX.Element {
       .then((response) => response.json())
       .then((data) => {
         console.log(data.results)
-        const articlesData = data.results.map((result: any) => ({
-          title: result.title,
-          url: result.url
-        }));
+        // const articlesData = data.results.map((result: any) => ({
+        //   title: result.title,
+        //   url: result.url
+        // }));
 
         const uniqueSections = data.results.reduce((acc: [], curr: Article) => {
           // @ts-ignore
@@ -74,7 +77,11 @@ function App(): JSX.Element {
   function updateDisplayedArticles(selectedSection: string, articles: Article[], searchInput: string) {
     let filteredArticles = articles;
 
-    if (selectedSection !== 'all') {
+    // if (selectedSection !== 'all' ) {
+    //   filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
+    // }
+
+    if (selectedSection !== 'all' ) {
       filteredArticles = filteredArticles.filter(article => article.section === selectedSection);
     }
 
@@ -90,28 +97,57 @@ function App(): JSX.Element {
   }
 
   return (
-    <div className="app-container">
+    <>
       <SearchAppBar
         setSearchInput={setSearchInput}
         searchInput={searchInput}
       />
-      <Tabs
-        sections={sections}
-        setSelectedSection={setSelectedSection}
-      />
-      <Routes>
-        <Route path="/" element={
-          <>
-            <h1>{headline}</h1>
-            <div className="cards-container">
-              {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
-                <Card article={article} key={article.url} />
-              ))}
-            </div>
-          </>
-        } />
-      </Routes>
-    </div>
+      <div className="tablist-container" style={{ height: "50px", overflowX: "scroll" }}>
+     
+          <Tabs
+          sections={sections}
+          setSelectedSection={setSelectedSection}
+        />
+      </div>
+
+      <div className="app-container">
+
+        <Routes>
+          <Route path="/" element={
+            <>
+              <h1>{headline}</h1>
+
+              {updateDisplayedArticles(selectedSection, articles, searchInput).length === 0 &&
+                searchInput
+                ?
+                <h3 style={{ textAlign: "center" }}>No search results...</h3>
+                :
+                null
+              }
+
+              <div className="cards-container">
+                {updateDisplayedArticles(selectedSection, articles, searchInput).map(article => (
+                  <Card
+                    article={article}
+                    key={article.url}
+                    setSelectedArticle={setSelectedArticle} />
+                ))}
+              </div>
+
+            </>
+          } />
+
+          {selectedArticle && selectedArticle.title && (
+            <Route
+              path={`/article/${selectedArticle.title.toLowerCase().split(" ").join("-")}`}
+              element={<ArticleDetailView article={selectedArticle} />}
+            />
+          )}
+
+        </Routes>
+
+      </div>
+    </>
   );
 }
 

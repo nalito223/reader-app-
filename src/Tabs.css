@@ -1,3 +1,11 @@
 .tablist-container {
-  overflow: scroll;
+
+
+
+    overflow-x: scroll;
+    scroll-behavior: auto;
+    width: 100vw;
+
+
 }
+

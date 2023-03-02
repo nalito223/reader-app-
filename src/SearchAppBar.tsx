@@ -12,9 +12,10 @@ import MenuIcon from '@mui/icons-material/Menu';
 import SearchIcon from '@mui/icons-material/Search';
 import Drawer from "./Drawer"
 // import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
-
+import { Link } from "react-router-dom"
 import { useState } from "react"
 // import { SettingsInputAntennaTwoTone } from '@mui/icons-material';
+import { useNavigate } from "react-router-dom";
 
 
 // let status = true
@@ -73,6 +74,14 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 export default function SearchAppBar(props: any): JSX.Element {
 
   const [status, setStatus] = useState(false);
+  const navigate = useNavigate()
+
+  const handleSearchInput = (event: React.ChangeEvent<HTMLInputElement>) => {
+    props.setSearchInput(event.target.value);
+    if (event.target.value !== "") {
+      navigate("/");
+    }
+  };
   return (
     <>
       <Box sx={{ flexGrow: 1 }}>
@@ -85,7 +94,7 @@ export default function SearchAppBar(props: any): JSX.Element {
               aria-label="open drawer"
               // sx={{ mr: 2 }}
               onClick={() => setStatus(true)}
-              // onClick={() => drawerOpenToggle()}
+            // onClick={() => drawerOpenToggle()}
             >
               {/* <MenuIcon /> */}
             </IconButton>
@@ -93,16 +102,19 @@ export default function SearchAppBar(props: any): JSX.Element {
               variant="h6"
               noWrap
               component="div"
-              sx={{ 
-                flexGrow: 1, 
+              sx={{
+                flexGrow: 1,
                 display: { xs: 'none', sm: 'block' },
                 fontFamily: "'Lora', serif",
                 textTransform: "uppercase",
                 letterSpacing: "1px"
               }}
-             
+
             >
-             <b>NYT Reader</b>
+              <Link to="/">
+                <b>NYT Reader</b>
+              </Link>
+
             </Typography>
             <Search>
               <SearchIconWrapper>
@@ -112,7 +124,7 @@ export default function SearchAppBar(props: any): JSX.Element {
                 placeholder="Search…"
                 inputProps={{ 'aria-label': 'search' }}
                 value={props.searchInput}
-                onChange={(event) => props.setSearchInput(event.target.value)}
+                onChange={handleSearchInput}
               />
             </Search>
           </Toolbar>

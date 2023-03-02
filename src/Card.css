@@ -29,3 +29,13 @@ mark {
   padding: 2px
 }
 
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+.article-card:hover {
+  border-bottom: 1px solid black;
+}
+
+

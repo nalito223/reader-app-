@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { Link } from "react-router-dom"
 import "./Card.css"
 
 interface Article {
@@ -34,9 +35,12 @@ interface Article {
 
 interface Props {
   article: Article;
+  setSelectedArticle: React.Dispatch<React.SetStateAction<Article>>;
+  key: string;
 }
 
-const Card: React.FC<Props> = ({ article }) => {
+const Card: React.FC<Props> = ({ article, setSelectedArticle }) => {
+  const savedArticle = article
   const { section, title, abstract, byline, multimedia } = article;
   const imageUrl = multimedia?.find((m) => m.format === 'Super Jumbo')?.url;
 
@@ -60,16 +64,18 @@ const Card: React.FC<Props> = ({ article }) => {
   }, [multimedia]);
 
   return (
-    <div className="article-card">
-      <div className="image-container">
-      {imageUrl && <img src={imageUrl} alt="" />}
+    <Link to={`/article/${article.title.toLowerCase().split(" ").join("-")}`}>
+      <div className="article-card" 
+      onClick={() => setSelectedArticle(savedArticle)}>
+        <div className="image-container">
+          {imageUrl && <img src={imageUrl} alt="" />}
+        </div>
+        <h4><mark>{"#" + section}</mark></h4>
+        <h3>{title}</h3>
+        <p>{abstract}</p>
+        <p><i>{byline}</i></p>
       </div>
-      <h4><mark>{"#" + section }</mark></h4>
-      <h3>{title}</h3>
-      <p>{abstract}</p>
-      <p><i>{byline}</i></p>
-    </div>
+    </Link>
   );
 };
-
 export default Card;

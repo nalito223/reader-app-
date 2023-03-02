@@ -27,7 +27,11 @@
 
 .css-i9gxme {
   width: 100%;
+
 }
+
+
+
 
 h1 {
   text-transform: uppercase;
@@ -49,3 +53,11 @@ h1 {
   background-color: RGB(0, 31, 63);
   border: 2px solid red;
 } */
+
+
+@media (max-width: 800px) {
+  .cards-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
