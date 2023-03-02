@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Route, Routes, useLocation, Link } from 'react-router-dom'
 import "./App.css"
 import SearchAppBar from "./SearchAppBar"
+
 import Tabs from "./Tabs"
 import Card from "./Card"
 import ArticleDetailView from "./ArticleDetailView"
@@ -106,21 +107,26 @@ function App(): JSX.Element {
       />
       {/* <div className="tablist-container" style={{ height: "50px", overflowX: "scroll" }}> */}
 
-      {!inDetailedView && <Tabs
-        sections={sections}
-        setSelectedSection={setSelectedSection}
-      />}
+
+      {!inDetailedView &&
+
+        <Tabs
+          // @ts-ignore
+          sections={sections}
+          setSelectedSection={setSelectedSection}
+        />
+      }
 
 
-     
+
       {/* </div> */}
 
       <div className="app-container">
-      {inDetailedView && (
-        <Link to="/">
-         <p className="return">Return</p>
-        </Link>
-      )}
+        {inDetailedView && (
+          <Link to="/">
+            <p className="return">Return</p>
+          </Link>
+        )}
 
         <Routes>
           <Route path="/" element={
