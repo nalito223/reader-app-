@@ -25,25 +25,31 @@ export default function ScrollableTabs(props: any) {
 
   return (
     // <Box sx={{ maxWidth: { xs: 320, sm: 480 }, bgcolor: 'background.paper' }}>
-    <Box sx={{ width: '100%', bgcolor: 'none' }}>
-      <Tabs
-        value={value}
-        onChange={handleChange}
-        variant="scrollable"
-        scrollButtons="auto"
-        aria-label="scrollable auto tabs example"
-        TabIndicatorProps={{
-          style: {
-            backgroundColor: 'RGB(0, 31, 63)',
-            height: '3px',
-          },
-        }}
-        sx={{
-          '& .Mui-selected': {
-            color: 'RGB(0, 31, 63)',
-          },
-        }}
-      >
+    <Box sx={{
+      display: 'flex',
+      justifyContent: 'center',
+      width: '100%',
+      bgcolor: 'none',
+    }}>
+   <Tabs
+  value={value}
+  onChange={handleChange}
+  variant="scrollable"
+  scrollButtons="auto"
+  aria-label="scrollable auto tabs example"
+  allowScrollButtonsMobile={true}
+  TabIndicatorProps={{
+    style: {
+      backgroundColor: 'RGB(0, 31, 63)',
+      height: '3px',
+    },
+  }}
+  sx={{
+    '& .Mui-selected': {
+      color: 'RGB(0, 31, 63)',
+    },
+  }}
+>
         {allTabs}
       </Tabs>
     </Box>
