@@ -1,0 +1,23 @@
+.detail-byline-container {
+  display: flex;
+  gap: .5%;
+  font-style: italic;
+}
+
+.detail-title {
+  font-size: 4vh;
+}
+
+.detail-abstract {
+  font-size: 2.5vh;
+}
+
+.nyt-link {
+  font-size: 2.5vh;
+}
+
+.detail-view-container {
+  display: flex;
+  flex-direction: column;
+  width: 90%;
+}
