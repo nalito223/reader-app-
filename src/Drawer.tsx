@@ -17,13 +17,13 @@ type Anchor = 'top' | 'left' | 'bottom' | 'right';
 
 export default function TemporaryDrawer(props: any) {
 
-  console.log("HERE AGAIN", props.status)
+  // console.log("HERE AGAIN", props.status)
 
   // const [articles, setArticles] = useState<Article[]>([]);
 
   // let test = props.status
 
-  console.log("HERE", props.state)
+  // console.log("HERE", props.state)
   const [state, setState] = React.useState({
     top: false,
     left: false,
