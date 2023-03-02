@@ -39,6 +39,10 @@ interface ArticleDetailViewProps {
 }
 
 function ArticleDetailView({ article }: ArticleDetailViewProps): JSX.Element {
+  useEffect(() => {
+    window.scrollTo(0, 0);
+  }, []);
+  
   return (
     <div className="detail-view-container">
       <h2 className="detail-title">{article.title}</h2>
