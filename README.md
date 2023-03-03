@@ -1,5 +1,5 @@
 # React Article Discovery App
-This is a React-based web application for mobile and desktop that uses the New York Times API to search and display articles. It allows users to search for articles by keyword, section, or both. The application is built using TypeScript and React Router for routing. The article links are sticky and can be shared. 
+This is a React-based, solo built web application for mobile and desktop that uses the New York Times API to search and display articles. It allows users to search for articles by keyword, section, or both. The application is built using TypeScript and React Router for routing. The article links are sticky and can be shared. 
 
 [Click here to view deployed site](https://reader-app-ten.vercel.app/)
 
