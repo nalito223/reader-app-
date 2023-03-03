@@ -39,18 +39,18 @@ interface Article {
 //   article: Article;
 // }
 
-function ArticleDetailView({  }): JSX.Element {
+function ArticleDetailView({ }): JSX.Element {
   const [article, setArticle] = useState<Article | any>({});
   const { id } = useParams<{ id: string }>();
   // const url1 = Object.values(useParams())[0]
   const currentUrl = window.location.href;
-const url1 = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
+  const url1 = currentUrl.substring(currentUrl.lastIndexOf("/") + 1);
 
-const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
-const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`;
+  const apiKey = "y91isREinSgzhbg3K1rq92arrgbiLfkw";
+  const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKey}`;
 
   // console.log(Object.values(useParams())[0])
-// console.log("URI from params", Object.values(id))
+  // console.log("URI from params", Object.values(id))
 
 
   // useEffect(() => {
@@ -77,43 +77,46 @@ const url = `https://api.nytimes.com/svc/topstories/v2/home.json?api-key=${apiKe
     //     })
 
     fetch(url)
-  .then((response) => response.json())
-  .then((data) => {
-    let articleMatch;
-    data.results.forEach((article: Article) => {
-      if (article.url.includes(url1)) {
-        articleMatch = article;
-      }
-    });
-    setArticle(articleMatch);
-  });
+      .then((response) => response.json())
+      .then((data) => {
+        let articleMatch;
+        data.results.forEach((article: Article) => {
+          if (article.url.includes(url1)) {
+            articleMatch = article;
+          }
+        });
+        setArticle(articleMatch);
+      });
   }, []);
-  
+
   const hasImage = article?.multimedia && article.multimedia.length > 0 && article.multimedia[0].type === 'image';
 
   return (
-    article && article.title && (
-    <div className="detail-view-container">
-      <h2 className="detail-title">{article.title}</h2>
-      <p className="detail-abstract">{article.abstract}</p>
+    article ? (
+      <div className="detail-view-container">
+        <h2 className="detail-title">{article.title}</h2>
+        <p className="detail-abstract">{article.abstract}</p>
 
-      <div className="detail-byline-container">
-        <p>{article.byline} | {article.published_date}</p>
+        <div className="detail-byline-container">
+          <p>{article.byline} | {article.published_date}</p>
+        </div>
+
+        {hasImage && (
+          <img src={article.multimedia[0].url} alt={article.multimedia[0].caption} />
+        )}
+
+        {hasImage && (
+          <p>{article.multimedia[0].caption}<i> Credit: {article.multimedia[0].copyright}</i></p>
+        )}
+
+        <Link to={article.url}>
+          <p className="nyt-link"><mark>Click to continue reading at the New York Times.</mark></p>
+        </Link>
       </div>
-
-      {hasImage && (
-        <img src={article.multimedia[0].url} alt={article.multimedia[0].caption} />
-      )}
-      
-      {hasImage && (
-        <p>{article.multimedia[0].caption}<i> Credit: {article.multimedia[0].copyright}</i></p>
-      )}
-        
-      <Link to={article.url}>
-        <p className="nyt-link"><mark>Click to continue reading at the New York Times.</mark></p>
-      </Link>
-    </div>
-  ))
+    ) : (
+      <h2>Article expired...</h2>
+    )
+  );
 };
 
 
